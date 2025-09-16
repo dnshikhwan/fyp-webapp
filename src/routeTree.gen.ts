@@ -10,18 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as InventoriesIndexRouteImport } from './routes/inventories/index'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthForgotPasswordRouteImport } from './routes/auth/forgot-password'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InventoriesIndexRoute = InventoriesIndexRouteImport.update({
-  id: '/inventories/',
-  path: '/inventories/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
@@ -39,39 +33,30 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
-  '/inventories': typeof InventoriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
-  '/inventories': typeof InventoriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/login': typeof AuthLoginRoute
-  '/inventories/': typeof InventoriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth/forgot-password' | '/auth/login' | '/inventories'
+  fullPaths: '/' | '/auth/forgot-password' | '/auth/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth/forgot-password' | '/auth/login' | '/inventories'
-  id:
-    | '__root__'
-    | '/'
-    | '/auth/forgot-password'
-    | '/auth/login'
-    | '/inventories/'
+  to: '/' | '/auth/forgot-password' | '/auth/login'
+  id: '__root__' | '/' | '/auth/forgot-password' | '/auth/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthLoginRoute: typeof AuthLoginRoute
-  InventoriesIndexRoute: typeof InventoriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -81,13 +66,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/inventories/': {
-      id: '/inventories/'
-      path: '/inventories'
-      fullPath: '/inventories'
-      preLoaderRoute: typeof InventoriesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/login': {
@@ -111,7 +89,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthLoginRoute: AuthLoginRoute,
-  InventoriesIndexRoute: InventoriesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
