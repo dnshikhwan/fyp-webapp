@@ -1,14 +1,16 @@
 import * as React from "react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
+import NotFound from "@/components/not-found";
 
 export const Route = createRootRoute({
-    component: RootComponent,
+  component: RootComponent,
+  notFoundComponent: () => <NotFound />,
 });
 
 function RootComponent() {
-    return (
-        <React.Fragment>
-            <Outlet />
-        </React.Fragment>
-    );
+  return (
+    <React.Fragment>
+      <Outlet />
+    </React.Fragment>
+  );
 }
